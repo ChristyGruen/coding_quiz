@@ -2,3 +2,13 @@
   color: greenyellow;
   border: 1px, solid, blue;
 }
+
+#listAnswer{
+  list-style-type: none;
+}
+
+.answerText{
+  color: blue;
+  margin: 2px;
+  padding: 0px;
+}
