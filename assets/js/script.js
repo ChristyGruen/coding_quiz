@@ -1,4 +1,7 @@
-let quizQuestion = quizQnA[0].question
+// let quizQuestion = quizQnA[0].question
+var timeE1
+
+//timers in Mod4 lessons 09, 10
 
 
 let quizQnA = [
