@@ -1,23 +1,109 @@
 // let quizQuestion = quizQnA[0].question
-var timeE1
+var timeEl
+const startEl = document.querySelector('#startButton');
+// const selectEl = document.querySelector('#listAnswer')
+const selectB1 = document.querySelector('#buttonOne');
+const selectB2 = document.querySelector('#buttonTwo');
+const selectB3 = document.querySelector('#buttonThree');
+const selectB4 = document.querySelector('#buttonFour');
+
+let correctAnswers = 0;
+let totalAnswers = 0;
 
 //timers in Mod4 lessons 09, 10
 
 
 let quizQnA = [
-  {question: 'What is your favorite color?', firstchoice: 'blue', secondchoice: 'green', thirdchoice: 'yellow', fourthchoice:'red', answer: 'green'},
-  {question: 'What is your favorite pet animal', firstchoice: 'cat', secondchoice:'dog', thirdchoice: 'parakeet', fourthchoice:'bunny', correctanswer:"cat"},
+  {question: 'What is your favorite color?', A: 'blue', B: 'green', C: 'yellow', D:'red', correctAnswer: 'green', correctSelection: 'B'},
+  {question: 'What is your favorite pet animal?', A: 'cat', B:'dog', C: 'parakeet', D:'bunny', correctAnswer:"cat", correctSelection: 'A'},
 ]
 
-console.log(quizQnA[0].question)
-console.log(quizQnA.length)
+function startQuiz(){
+  console.log('hello PJ')
+  loopQ()
 
-for (let i = 0; i <quizQnA.length; i++){
-  quizQuestion = quizQnA[i].question;
-  quizFirstChoice = quizQnA[i].firstchoice;
-  quizSecondChoice = quizQnA[i].secondchoice;
-  quizThirdChoice = quizQnA[i].thirdchoice;
-  quizFourthChoice = quizQnA[i].fourthchoice;
-  quizAnswer = quizQnA[i].correctanswer;
 }
 
+
+function loopQ(){
+//add while timer is not zero, else end
+for (let i = 0; i <quizQnA.length; i++){
+  //write question and answers to webpage
+  document.getElementById('questionText').innerHTML = quizQnA[i].question;
+  document.getElementById('answerTextA').innerHTML = quizQnA[i].A; 
+  document.getElementById('answerTextB').innerHTML = quizQnA[i].B;
+  document.getElementById('answerTextC').innerHTML = quizQnA[i].C;
+  document.getElementById('answerTextD').innerHTML = quizQnA[i].D;
+  //event listener for clicking on answers, 
+  //check answer against correct answer
+  //add to correct question and total question values
+  
+
+
+
+}}
+
+
+
+function gradeQ(event){
+  console.log(quizQnA[1].correctSelection)
+  console.log(this.value) //this returns the selected value A,B,C,D
+  if(this.value == quizQnA[1].correctSelection){
+    console.log('Correct Answer!'),
+    correctAnswers ++,
+    totalAnswers ++,
+    console.log(correctAnswers),
+    console.log(totalAnswers)
+
+  }
+  else{
+    console.log('bummer')
+    console.log(`The correct answer is ${quizQnA[1].correctSelection}.${quizQnA[1].correctAnswer}`)
+    totalAnswers ++
+    console.log(totalAnswers)
+  }
+
+}
+
+
+
+
+function winLose(){
+  //add quiz win/lose here and save result to local storage
+}
+
+startEl.addEventListener('click',startQuiz);
+// selectEl.addEventListener('click',gradeQ)
+selectB1.addEventListener('click',gradeQ);
+selectB2.addEventListener('click',gradeQ);
+selectB3.addEventListener('click',gradeQ);
+selectB4.addEventListener('click',gradeQ);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// startEl.addEventListener('click',startQuiz);
+// selectEl.addEventListener('click',gradeQ);
+
+// another way to store the questions?? 
+// var questions = [{
+// question: 'q1',
+// answer:[
+//   {text:'answer A', isCorrect: true},
+//   {text:'answer B', isCorrect: false},
+//   {text:'answer C', isCorrect: false},
+//   {text:'answer D', isCorrect: false}
+// ]
+// }]
+
+// Array.from(something) will give you an array from whatever is wrapped
