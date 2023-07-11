@@ -13,6 +13,7 @@ let userInitials = '';
 let userHistory = {initials: 'TBD',
 numCorrect: 0, numTotal: 0}
 localStorage.setItem('userHistory', JSON.stringify(userHistory));
+let minutesLeft = 10;
 
 
 
@@ -28,29 +29,39 @@ let quizQnA = [
 
 function startQuiz(){
   console.log('hello PJ')
-  // setTimer()
+  setTime()
   loopQ()
 
 }
-
-  //do all the timer stuff
-  //add timer to html
-  //start countdown
-  //refresh countdown every minute
   //end game when timer runs out
 
-function timer(event){
-  event.preventDefault();
-  let text = localStorage.getItem('userHistory');
-  let userHistory = JSON.parse(text);
+var timeEl = document.querySelector(".time");  // shows the countdown
 
+function setTime(event) {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    let text = localStorage.getItem('userHistory');
+    let userHistory = JSON.parse(text);
+    minutesLeft--;
+    timeEl.textContent = `Time: ${minutesLeft}  minutes left.`;
 
+    if(minutesLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+      sendMessage();
+    }
 
-
+  }, 60000);
 
 }
 
+// Function to create and append colorsplosion image
+function sendMessage(event) {
+  event.preventDefault();
+  timeEl.textContent = " ";
 
+}
 
 
 function loopQ(){
@@ -108,6 +119,13 @@ function gameOver(){
   userHistory.initials = userInitials;
   userHistory.numCorrect = correctAnswers;
   userHistory.numTotal = totalAnswers;
+  if (totalAnswers == quizQnA.length){
+    alert('Congratulations! You completed all of the questions before the timer ran out!')
+  }
+  else
+  {
+    alert(`You answered ${correctAnswers} out of a total of ${totalAnswers}.  There were ${quizQnA.length - totalAnswers} left.  Better luck next time!`)
+  }
   //save userHistory to localStorage
   localStorage.setItem('userHistory', JSON.stringify(userHistory));
   //reset variables
