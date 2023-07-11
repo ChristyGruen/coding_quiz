@@ -14,6 +14,7 @@ let userHistory = {initials: 'TBD',
 numCorrect: 0, numTotal: 0}
 localStorage.setItem('userHistory', JSON.stringify(userHistory));
 let minutesLeft = 10;
+let questionNum = 0;
 
 
 
@@ -61,23 +62,10 @@ function setTime(event) {
 
 }
 
-// // Function to create and append colorsplosion image
-// function sendMessage(event) {
-//   event.preventDefault();
-//   timeEl.textContent = " ";
-
-// }
-
-function setQ(){
-
-
-}
-
-
-
 function loopQ(){
+  while(questionNum <quizQnA.length){
   if (minutesLeft >0){
-    for (let i = 0; i <quizQnA.length; i++){
+      i = questionNum;
       //write question and answers to webpage
       document.getElementById('questionText').innerHTML = quizQnA[i].question;
       document.getElementById('answerTextA').innerHTML = quizQnA[i].A; 
@@ -87,47 +75,39 @@ function loopQ(){
       //event listener for clicking on answers, 
       //check answer against correct answer
       //add to correct question and total question values
-      doThisNext()
-
-      function doThisNext(){
+  
       selectB1.addEventListener('click',gradeQ);
       selectB2.addEventListener('click',gradeQ);
       selectB3.addEventListener('click',gradeQ);
       selectB4.addEventListener('click',gradeQ);
+    
+      
+    function gradeQ(event){
+      console.log(quizQnA[i].correctSelection)
+      console.log(this.value) //this returns the selected value A,B,C,D
+      if(this.value == quizQnA[i].correctSelection){
+        console.log('Correct Answer!'),
+        correctAnswers ++,
+        totalAnswers ++,
+        questionNum ++,
+        console.log(correctAnswers),
+        console.log(totalAnswers)
       }
-      
-      function gradeQ(event){
-        console.log(quizQnA[i].correctSelection)
-        console.log(this.value) //this returns the selected value A,B,C,D
-        if(this.value == quizQnA[i].correctSelection){
-          console.log('Correct Answer!'),
-          correctAnswers ++,
-          totalAnswers ++,
-          console.log(correctAnswers),
-          console.log(totalAnswers)
-      
-        }
-        else{
-          console.log('bummer')
-          console.log(`The correct answer is ${quizQnA[i].correctSelection}.${quizQnA[i].correctAnswer}`)
-          totalAnswers ++
-          console.log(totalAnswers)
-          //subtract time from timer
-        }
-      
+      else{
+        console.log('bummer'),
+        console.log(`The correct answer is ${quizQnA[i].correctSelection}.{quizQnA[i].correctAnswer}`),
+        totalAnswers ++,
+        questionNum ++,
+        console.log(totalAnswers)
+        //subtract time from timer
       }
-
     }
-  }else{
-    gameOver();
+  }
+    else{
+      gameOver();
   }
 }
-
-
-
-
-
-
+}
 
 function gameOver(){
   //enter initials
@@ -149,24 +129,10 @@ function gameOver(){
   userInitials = '';
   correctAnswers = 0;
   totalAnswers = 0;
-
-
-
-
-  //update local storage with correct answers and total answers
-  //if total answers = quizQnA.length, congratulations you completed all of the questions before the timer ran out!
-  //if total answers != quizQnA.length, You answered correct answers out of a total of total answers.  There were quizQnA.length - totalAnswers left.  Better luck next time!
-
-  
-
 }
 
 startEl.addEventListener('click',startQuiz);
-// selectEl.addEventListener('click',gradeQ)
-// selectB1.addEventListener('click',gradeQ);
-// selectB2.addEventListener('click',gradeQ);
-// selectB3.addEventListener('click',gradeQ);
-// selectB4.addEventListener('click',gradeQ);
+
 
 
 
