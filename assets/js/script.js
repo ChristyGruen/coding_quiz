@@ -14,7 +14,6 @@ let userHistory = {initials: 'TBD',
 numCorrect: 0, numTotal: 0}
 localStorage.setItem('userHistory', JSON.stringify(userHistory));
 let minutesLeft = 10;
-let questionNum = 0;
 
 
 
@@ -33,7 +32,7 @@ let quizQnA = [
 function startQuiz(){
   console.log('hello PJ')
   setTime()
-  loopQ()
+  loopQ(0)
 
 }
   //end game when timer runs out
@@ -62,16 +61,14 @@ function setTime(event) {
 
 }
 
-function loopQ(){
-  while(questionNum <quizQnA.length){
-  if (minutesLeft >0){
-      i = questionNum;
+function loopQ(qNo){
+  if (minutesLeft >0 & qNo<quizQnA.length){
       //write question and answers to webpage
-      document.getElementById('questionText').innerHTML = quizQnA[i].question;
-      document.getElementById('answerTextA').innerHTML = quizQnA[i].A; 
-      document.getElementById('answerTextB').innerHTML = quizQnA[i].B;
-      document.getElementById('answerTextC').innerHTML = quizQnA[i].C;
-      document.getElementById('answerTextD').innerHTML = quizQnA[i].D;
+      document.getElementById('questionText').innerHTML = quizQnA[qNo].question;
+      document.getElementById('answerTextA').innerHTML = quizQnA[qNo].A; 
+      document.getElementById('answerTextB').innerHTML = quizQnA[qNo].B;
+      document.getElementById('answerTextC').innerHTML = quizQnA[qNo].C;
+      document.getElementById('answerTextD').innerHTML = quizQnA[qNo].D;
       //event listener for clicking on answers, 
       //check answer against correct answer
       //add to correct question and total question values
@@ -83,30 +80,33 @@ function loopQ(){
     
       
     function gradeQ(event){
-      console.log(quizQnA[i].correctSelection)
+      selectB1.removeEventListener('click', gradeQ);
+			selectB2.removeEventListener('click', gradeQ);
+			selectB3.removeEventListener('click', gradeQ);
+			selectB4.removeEventListener('click', gradeQ);
+      console.log(quizQnA[qNo].correctSelection)
       console.log(this.value) //this returns the selected value A,B,C,D
-      if(this.value == quizQnA[i].correctSelection){
+      if(this.value == quizQnA[qNo].correctSelection){
         console.log('Correct Answer!'),
         correctAnswers ++,
         totalAnswers ++,
-        questionNum ++,
         console.log(correctAnswers),
         console.log(totalAnswers)
       }
       else{
         console.log('bummer'),
-        console.log(`The correct answer is ${quizQnA[i].correctSelection}.{quizQnA[i].correctAnswer}`),
+        console.log(`The correct answer is ${quizQnA[qNo].correctSelection}.{quizQnA[i].correctAnswer}`),
         totalAnswers ++,
-        questionNum ++,
         console.log(totalAnswers)
         //subtract time from timer
+        minutesLeft--;
       }
+      loopQ(qNo +1)
     }
   }
     else{
       gameOver();
   }
-}
 }
 
 function gameOver(){
