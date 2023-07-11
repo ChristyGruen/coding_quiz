@@ -23,7 +23,9 @@ let minutesLeft = 10;
 
 let quizQnA = [
   {question: 'What is your favorite color?', A: 'blue', B: 'green', C: 'yellow', D:'red', correctAnswer: 'green', correctSelection: 'B'},
-  {question: 'What is your favorite pet animal?', A: 'cat', B:'dog', C: 'parakeet', D:'bunny', correctAnswer:"cat", correctSelection: 'A'}];
+  {question: 'What is your favorite pet animal?', A: 'cat', B:'dog', C: 'parakeet', D:'bunny', correctAnswer:"cat", correctSelection: 'A'},
+  {question: 'What is your favorite movie genre?', A: 'drama', B:'western', C: 'science fiction', D:'comedy', correctAnswer:"science fiction", correctSelection: 'C'},
+  {question: 'What is your favorite dinner?', A: 'spaghetti', B:'steak and potatoes', C: 'hamburgers and chips', D:'seared scallops and salad', correctAnswer:"seared scallops and salad", correctSelection: 'D'}];
 
 
 
@@ -45,69 +47,84 @@ function setTime(event) {
     minutesLeft--;
     timeEl.textContent = `Time: ${minutesLeft}  minutes left.`;
 
-    if(minutesLeft === 0) {
+    if(minutesLeft <= 0) {
       // Stops execution of action at set interval
       clearInterval(timerInterval);
       // Calls function to create and append image
-      sendMessage();
+      // gameOver();
     }
 
-  }, 60000);
+  }, 
+  // 60000 //one minute intervals
+  10000 // ten second intervals
+  );
 
 }
 
-// Function to create and append colorsplosion image
-function sendMessage(event) {
-  event.preventDefault();
-  timeEl.textContent = " ";
+// // Function to create and append colorsplosion image
+// function sendMessage(event) {
+//   event.preventDefault();
+//   timeEl.textContent = " ";
+
+// }
+
+function setQ(){
+
 
 }
+
 
 
 function loopQ(){
-//add while timer is not zero, else end
-for (let i = 0; i <quizQnA.length; i++){
-  //write question and answers to webpage
-  document.getElementById('questionText').innerHTML = quizQnA[i].question;
-  document.getElementById('answerTextA').innerHTML = quizQnA[i].A; 
-  document.getElementById('answerTextB').innerHTML = quizQnA[i].B;
-  document.getElementById('answerTextC').innerHTML = quizQnA[i].C;
-  document.getElementById('answerTextD').innerHTML = quizQnA[i].D;
-  //event listener for clicking on answers, 
-  //check answer against correct answer
-  //add to correct question and total question values
+  if (minutesLeft >0){
+    for (let i = 0; i <quizQnA.length; i++){
+      //write question and answers to webpage
+      document.getElementById('questionText').innerHTML = quizQnA[i].question;
+      document.getElementById('answerTextA').innerHTML = quizQnA[i].A; 
+      document.getElementById('answerTextB').innerHTML = quizQnA[i].B;
+      document.getElementById('answerTextC').innerHTML = quizQnA[i].C;
+      document.getElementById('answerTextD').innerHTML = quizQnA[i].D;
+      //event listener for clicking on answers, 
+      //check answer against correct answer
+      //add to correct question and total question values
+      doThisNext()
 
-  selectB1.addEventListener('click',gradeQ);
-  selectB2.addEventListener('click',gradeQ);
-  selectB3.addEventListener('click',gradeQ);
-  selectB4.addEventListener('click',gradeQ);
-}
+      function doThisNext(){
+      selectB1.addEventListener('click',gradeQ);
+      selectB2.addEventListener('click',gradeQ);
+      selectB3.addEventListener('click',gradeQ);
+      selectB4.addEventListener('click',gradeQ);
+      }
+      
+      function gradeQ(event){
+        console.log(quizQnA[i].correctSelection)
+        console.log(this.value) //this returns the selected value A,B,C,D
+        if(this.value == quizQnA[i].correctSelection){
+          console.log('Correct Answer!'),
+          correctAnswers ++,
+          totalAnswers ++,
+          console.log(correctAnswers),
+          console.log(totalAnswers)
+      
+        }
+        else{
+          console.log('bummer')
+          console.log(`The correct answer is ${quizQnA[i].correctSelection}.${quizQnA[i].correctAnswer}`)
+          totalAnswers ++
+          console.log(totalAnswers)
+          //subtract time from timer
+        }
+      
+      }
 
-}
-
-
-
-function gradeQ(event){
-  console.log(quizQnA[1].correctSelection)
-  console.log(this.value) //this returns the selected value A,B,C,D
-  if(this.value == quizQnA[1].correctSelection){
-    console.log('Correct Answer!'),
-    correctAnswers ++,
-    totalAnswers ++,
-    console.log(correctAnswers),
-    console.log(totalAnswers)
-
+    }
+  }else{
+    gameOver();
   }
-  else{
-    console.log('bummer')
-    console.log(`The correct answer is ${quizQnA[1].correctSelection}.${quizQnA[1].correctAnswer}`)
-    totalAnswers ++
-    console.log(totalAnswers)
-    //subtract time from timer
-  }
-
-
 }
+
+
+
 
 
 
@@ -146,10 +163,10 @@ function gameOver(){
 
 startEl.addEventListener('click',startQuiz);
 // selectEl.addEventListener('click',gradeQ)
-selectB1.addEventListener('click',gradeQ);
-selectB2.addEventListener('click',gradeQ);
-selectB3.addEventListener('click',gradeQ);
-selectB4.addEventListener('click',gradeQ);
+// selectB1.addEventListener('click',gradeQ);
+// selectB2.addEventListener('click',gradeQ);
+// selectB3.addEventListener('click',gradeQ);
+// selectB4.addEventListener('click',gradeQ);
 
 
 
