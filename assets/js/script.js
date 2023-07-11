@@ -22,10 +22,28 @@ let minutesLeft = 10;
 
 
 let quizQnA = [
-  {question: 'What is your favorite color?', A: 'blue', B: 'green', C: 'yellow', D:'red', correctAnswer: 'green', correctSelection: 'B'},
-  {question: 'What is your favorite pet animal?', A: 'cat', B:'dog', C: 'parakeet', D:'bunny', correctAnswer:"cat", correctSelection: 'A'},
-  {question: 'What is your favorite movie genre?', A: 'drama', B:'western', C: 'science fiction', D:'comedy', correctAnswer:"science fiction", correctSelection: 'C'},
-  {question: 'What is your favorite dinner?', A: 'spaghetti', B:'steak and potatoes', C: 'hamburgers and chips', D:'seared scallops and salad', correctAnswer:"seared scallops and salad", correctSelection: 'D'}];
+  {question: 'What kind of datatype is a string?', A: 'Boolean', B: 'Primitive', C: 'Complex', D:'Undefined', correctAnswer: 'Primitive', correctSelection: 'B'},
+
+  {question: 'What do you call a variable is declared but not assigned?', A: 'Boolean', B:'Primitive', C: 'Complex', D:'Undefined', correctAnswer:"Undefined", correctSelection: 'D'},
+
+  {question: 'What kind of datatype is an array?', A: 'Boolean', B:'Primitive', C: 'Complex', D:'Undefined', correctAnswer:"Complex", correctSelection: 'C'},
+
+  {question: 'How is the operator = = used?', A: 'to assign a value to a variable', B:'to compare both values and types between two variables', C: 'to compare values between two variables', D:'to identify whether two variables are not the same', correctAnswer:"to compare values between two variables", correctSelection: 'C'},
+
+  {question: 'How is the assignment operator != used?',  A: 'to assign a value to a variable', B:'to compare both values and types between two variables', C: 'to compare values between two variables', D:'to identify whether two variables are not the same', correctAnswer:"to identify whether two variables are not the same", correctSelection: 'D'},
+
+  {question: 'An array is surrounded by which symbols?', A: '< >', B:'" "', C: '[ ]', D:'{ }', correctAnswer:"[ ]", correctSelection: 'C'},
+
+  {question: 'myArray = ["dog","cat","mouse", "snake"]  What result would be logged by console.log(myArray[3])? ', A: 'dog', B:'cat', C: 'mouse', D:'snake', correctAnswer:"snake", correctSelection: 'D'},
+
+  {question: 'let text = "onomatopoeia";  let length = text.length; length = ?', A: '10', B:'12', C: '0', D:'1', correctAnswer:"12", correctSelection: 'B'},
+
+  {question: 'What is not a type of JavaScript loop?', A: 'for', B:'when', C: 'while', D:'for in', correctAnswer:"when", correctSelection: 'B'},
+
+  {question: 'JSON stands for?', A: 'JavaScript Object Notation', B:'JavaScript Object Node', C: 'The best kid ever', D:'JavaScript Open Notation', correctAnswer:"JavaScript Object Notation", correctSelection: 'A'},
+
+];
+  
 
 
 
@@ -33,7 +51,7 @@ function startQuiz(){
   console.log('hello PJ')
   setTime()
   loopQ(0)
-
+ 
 }
   //end game when timer runs out
 
@@ -45,7 +63,7 @@ function setTime(event) {
     let text = localStorage.getItem('userHistory');
     let userHistory = JSON.parse(text);
     minutesLeft--;
-    timeEl.textContent = `Time: ${minutesLeft}  minutes left.`;
+    timeEl.textContent = `Time: ${minutesLeft/2}  minutes left.`;
 
     if(minutesLeft <= 0) {
       // Stops execution of action at set interval
@@ -56,7 +74,7 @@ function setTime(event) {
 
   }, 
   // 60000 //one minute intervals
-  10000 // ten second intervals
+  30000 // ten second intervals
   );
 
 }
@@ -117,7 +135,7 @@ function gameOver(){
   userHistory.numCorrect = correctAnswers;
   userHistory.numTotal = totalAnswers;
   if (totalAnswers == quizQnA.length){
-    alert('Congratulations! You completed all of the questions before the timer ran out!')
+    alert(`You answered all of the questions before the timer ran out.  You answered ${correctAnswers} out of a total of ${totalAnswers}.`)
   }
   else
   {
@@ -132,33 +150,3 @@ function gameOver(){
 }
 
 startEl.addEventListener('click',startQuiz);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// startEl.addEventListener('click',startQuiz);
-// selectEl.addEventListener('click',gradeQ);
-
-// another way to store the questions?? 
-// var questions = [{
-// question: 'q1',
-// answer:[
-//   {text:'answer A', isCorrect: true},
-//   {text:'answer B', isCorrect: false},
-//   {text:'answer C', isCorrect: false},
-//   {text:'answer D', isCorrect: false}
-// ]
-// }]
-
-// Array.from(something) will give you an array from whatever is wrapped

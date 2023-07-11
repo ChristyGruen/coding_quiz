@@ -32,7 +32,7 @@ THEN I can save my initials and my score
 <!-- The professional portfolio provides the requested information and meets the specified acceptance criteria. -->
 
 <!-- markdown embed image -->
-![desc](./assets/images/coding_quiz.png)
+![desc](./assets/images/codingQuiz.png)
 
 ## Website Link
 
